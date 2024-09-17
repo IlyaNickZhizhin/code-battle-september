@@ -1,4 +1,4 @@
-package com.codenjoy.dojo.games.rawelbbub;
+package com.codenjoy.dojo.games.rawelbbub.model;
 
 /*-
  * #%L
@@ -28,8 +28,8 @@ import com.codenjoy.dojo.services.Point;
 
 import java.util.List;
 
-import static com.codenjoy.dojo.games.rawelbbub.Element.REEFS;
-import static com.codenjoy.dojo.games.rawelbbub.ElementUtils.*;
+import static com.codenjoy.dojo.games.rawelbbub.model.Element.REEFS;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.*;
 
 /**
  * The class is a wrapper over the board string

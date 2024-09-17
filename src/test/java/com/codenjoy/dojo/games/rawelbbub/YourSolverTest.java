@@ -23,6 +23,7 @@ package com.codenjoy.dojo.games.rawelbbub;
  */
 
 import com.codenjoy.dojo.client.Solver;
+import com.codenjoy.dojo.games.rawelbbub.model.Board;
 import com.codenjoy.dojo.services.Direction;
 import com.codenjoy.dojo.services.dice.MockDice;
 import org.junit.Before;

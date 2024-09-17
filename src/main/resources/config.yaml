@@ -1,0 +1,8 @@
+#paste your configuration here
+token: secret
+modelName: gpt-35-turbo-16k
+modelVersion: 2024-02-01
+turnsForStore: 2
+stepsForRefreshRules: 5
+temperature: 0.3
+maxTokensOfAnswer: 400

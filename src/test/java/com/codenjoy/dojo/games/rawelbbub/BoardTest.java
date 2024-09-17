@@ -22,6 +22,8 @@ package com.codenjoy.dojo.games.rawelbbub;
  * #L%
  */
 
+import com.codenjoy.dojo.games.rawelbbub.model.Board;
+import com.codenjoy.dojo.games.rawelbbub.model.Element;
 import org.junit.Before;
 import org.junit.Test;
 

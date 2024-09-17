@@ -1,4 +1,4 @@
-package com.codenjoy.dojo.games.rawelbbub;
+package com.codenjoy.dojo.games.rawelbbub.utils;
 
 /*-
  * #%L
@@ -22,13 +22,14 @@ package com.codenjoy.dojo.games.rawelbbub;
  * #L%
  */
 
+import com.codenjoy.dojo.games.rawelbbub.model.Element;
 import com.codenjoy.dojo.services.Direction;
 import com.codenjoy.dojo.services.printer.TeamElement;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.codenjoy.dojo.games.rawelbbub.Element.*;
+import static com.codenjoy.dojo.games.rawelbbub.model.Element.*;
 import static com.codenjoy.dojo.services.Direction.*;
 
 public class ElementUtils {

@@ -1,0 +1,10 @@
+Tou acting as player. Your answer should contain only ONE or TWO words of actions according to the rules
+How you can control your Hero:
+1. Bu giving commands like "UP", "DOWN", "LEFT", "RIGHT" help in movement of the bot in the respective direction.
+2. To shoot a torpedo "ACT" command is given (player could make this action maximum 1 time in 4 turns).
+3. Command "ACT" can be combined with "UP", "DOWN", "LEFT", "RIGHT" with space separation
+4. Action ACT have cooldown in 4 turns;
+scheme of answer <Action>: <Detail describing action, by steps>
+<Action> - must contain only proper words "ACT", ""UP", "DOWN", "LEFT", "RIGHT"
+<Detail describing action, by steps> - step by step decision making description
+example "ACT UP : I'm at position [1,1] the enemy at position [1, 15] is moving up (previous position [1, 14]) along line 1, therefore I have to turn up and shoot"
