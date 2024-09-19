@@ -11,12 +11,14 @@ public class Turn implements Serializable {
     private transient final Board board;
     private final Action action;
     private final String boardAsString;
+    private Integer tokens;
 
     public Turn(Board board, Action action) {
         this.board = board;
         this.action = action;
         this.boardAsString = board.toString();
         this.number = getCounter().incrementAndGet();
+        this.tokens = 0;
     }
 
     private static AtomicInteger getCounter() {
@@ -32,6 +34,14 @@ public class Turn implements Serializable {
 
     public static void initializeCounter(int initialValue) {
         counter = new AtomicInteger(initialValue);
+    }
+
+    public void setTokens(Integer tokens) {
+        this.tokens = tokens;
+    }
+
+    public Integer getTokens() {
+        return tokens;
     }
 
     public int getNumber() {

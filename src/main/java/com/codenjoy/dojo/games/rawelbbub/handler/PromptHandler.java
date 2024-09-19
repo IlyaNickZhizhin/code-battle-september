@@ -3,6 +3,7 @@ package com.codenjoy.dojo.games.rawelbbub.handler;
 import com.codenjoy.dojo.games.rawelbbub.config.AIGateway;
 import com.codenjoy.dojo.games.rawelbbub.model.Board;
 import com.codenjoy.dojo.games.rawelbbub.processor.PrompterProcessor;
+import com.codenjoy.dojo.games.rawelbbub.repository.Repository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import feign.Feign;
@@ -23,6 +24,7 @@ public class PromptHandler {
     Map<String, String> headers;
     private final Gson gson;
     private final PrompterProcessor prompter;
+    private final Repository repository;
 
     public PromptHandler() {
         gateway = Feign.builder()
@@ -35,6 +37,7 @@ public class PromptHandler {
         model = new String[]{MODEL_NAME, MODEL_VERSION};
         gson = new GsonBuilder().disableHtmlEscaping().create();
         prompter = new PrompterProcessor();
+        repository = Repository.getInstance();
     }
 
 
@@ -55,6 +58,9 @@ public class PromptHandler {
         String response = ((Map<Object, Object>) choices.get("message")).get("content").toString();
         System.out.println("Answer from llm:");
         System.out.println(gson.toJson(answer));
+        Map<Object,Object> usage = (Map<Object, Object>) ((List<Object>) ((Map<Object, Object>) answer).get("usage"));
+        int tokens = (Integer) usage.get("total_tokens");
+        repository.getTurn(repository.getMaxTurnNumber()).setTokens(tokens);
         return response;
     }
 
