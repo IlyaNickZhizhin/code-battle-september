@@ -64,23 +64,19 @@ public class Repository {
         }
 
         try {
-            File file = new File(String.valueOf(repo));
-            file.getParentFile().mkdirs();
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
-                oos.writeObject(turnStorage);
-                System.out.println("Saving file to: " + file.getAbsolutePath());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            File file = new File(String.valueOf(tokens));
-            file.getParentFile().mkdirs();
+            File fileTurns = new File(String.valueOf(repo));
+            fileTurns.getParentFile().mkdirs();
+            File fileTokens = new File(String.valueOf(tokens));
+            fileTokens.getParentFile().mkdirs();
             int totalTokens = turnStorage.values().stream().mapToInt(Turn::getTokens).sum();
-            try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(file))) {
-                dos.writeBytes("<Team>_<PlayerName>_<Round>=");
-                dos.writeInt(totalTokens);
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileTurns))) {
+                oos.writeObject(turnStorage);
+                System.out.println("Saving file to: " + fileTurns.getAbsolutePath());
+            }
+            try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(fileTokens))) {
+                String data = "<Team>_<PlayerName>_<Round>=" + totalTokens;
+                dos.writeBytes(data);
+                System.out.println("Saving tokens sum value = " + totalTokens + " to: " + fileTokens.getAbsolutePath());
             }
         } catch (IOException e) {
             e.printStackTrace();

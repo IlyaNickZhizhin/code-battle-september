@@ -58,9 +58,9 @@ public class PromptHandler {
         String response = ((Map<Object, Object>) choices.get("message")).get("content").toString();
         System.out.println("Answer from llm:");
         System.out.println(gson.toJson(answer));
-        Map<Object,Object> usage = (Map<Object, Object>) ((List<Object>) ((Map<Object, Object>) answer).get("usage"));
-        int tokens = (Integer) usage.get("total_tokens");
-        repository.getTurn(repository.getMaxTurnNumber()).setTokens(tokens);
+        Map<Object,Object> usage = (Map<Object, Object>) ((Map<Object, Object>) answer).get("usage");
+        double tokens = (Double) usage.get("total_tokens");
+        repository.getTurn(repository.getMaxTurnNumber()).setTokens((int) tokens);
         return response;
     }
 
