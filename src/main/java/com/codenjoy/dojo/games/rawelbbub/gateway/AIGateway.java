@@ -1,4 +1,4 @@
-package com.codenjoy.dojo.games.rawelbbub.config;
+package com.codenjoy.dojo.games.rawelbbub.gateway;
 
 /*-
  * #%L

@@ -1,5 +1,6 @@
 package com.codenjoy.dojo.games.rawelbbub.repository;
 
+import com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser;
 import com.codenjoy.dojo.games.rawelbbub.model.Turn;
 
 import java.io.DataOutputStream;
@@ -11,30 +12,36 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Repository {
+import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.PLAYER_NAME;
+import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.TEAM_NAME;
+
+public class TurnsRepository {
     private final Map<Integer, Turn> turnStorage = new HashMap<>();
-    private final String FILE_PATH = "repository/turns.ser";
-    private final String TOTAL_TOKENS_FILE_PATH = "repository/tokens.txt";
+    private final String FILE_PATH = "logs/turns.ser";
+    private final String TOTAL_TOKENS_FILE_PATH = "logs/tokens.txt";
 
     private static class SingletonHelper {
-        private static final Repository INSTANCE;
+        private static final TurnsRepository INSTANCE;
         static {
             try {
-                INSTANCE = new Repository();
+                INSTANCE = new TurnsRepository();
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    public static Repository getInstance() {
+    public static TurnsRepository getInstance() {
         return SingletonHelper.INSTANCE;
     }
 
-    private Repository() throws URISyntaxException {
+    private TurnsRepository() throws URISyntaxException {
         loadRepository();
         Turn.initializeCounter(getMaxTurnNumber());
         Runtime.getRuntime().addShutdownHook(new Thread(this::saveRepository));
@@ -54,16 +61,9 @@ public class Repository {
     }
 
     private void saveRepository(){
-        Path repo = null;
-        Path tokens = null;
         try {
-            repo = Path.of(ClassLoader.getSystemResource(FILE_PATH).toURI());
-            tokens = Path.of(ClassLoader.getSystemResource(TOTAL_TOKENS_FILE_PATH).toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
+            Path repo = getProjectRoot().resolve(FILE_PATH);
+            Path tokens = getProjectRoot().resolve(TOTAL_TOKENS_FILE_PATH);
             File fileTurns = new File(String.valueOf(repo));
             fileTurns.getParentFile().mkdirs();
             File fileTokens = new File(String.valueOf(tokens));
@@ -74,7 +74,7 @@ public class Repository {
                 System.out.println("Saving file to: " + fileTurns.getAbsolutePath());
             }
             try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(fileTokens))) {
-                String data = "<Team>_<PlayerName>_<Round>=" + totalTokens;
+                String data = TEAM_NAME + "_" + PLAYER_NAME + "_" + Instant.now().getEpochSecond() + "=" + totalTokens;
                 dos.writeBytes(data);
                 System.out.println("Saving tokens sum value = " + totalTokens + " to: " + fileTokens.getAbsolutePath());
             }
@@ -85,7 +85,8 @@ public class Repository {
 
 
     private void loadRepository() {
-        File file = new File(String.valueOf(FILE_PATH));
+        Path repo = getProjectRoot().resolve(FILE_PATH);
+        File file = new File(String.valueOf(repo));
         if (file.exists() && file.length() > 0) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
                 Map<Integer, Turn> loadedTurns = (Map<Integer, Turn>) ois.readObject();
@@ -100,5 +101,16 @@ public class Repository {
 
     public int getMaxTurnNumber() {
         return turnStorage.keySet().stream().max(Integer::compare).orElse(0);
+    }
+
+    private Path getProjectRoot() {
+        Path currentPath = Paths.get(System.getProperty("user.dir"));
+        while (currentPath != null && !currentPath.endsWith("codenjoy-clients")) {
+            currentPath = currentPath.getParent();
+        }
+        if (currentPath == null) {
+            throw new RuntimeException("Project root 'codenjoy-clients' not found.");
+        }
+        return currentPath;
     }
 }

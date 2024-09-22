@@ -1,9 +1,9 @@
 package com.codenjoy.dojo.games.rawelbbub.handler;
 
-import com.codenjoy.dojo.games.rawelbbub.config.AIGateway;
+import com.codenjoy.dojo.games.rawelbbub.gateway.AIGateway;
 import com.codenjoy.dojo.games.rawelbbub.model.Board;
-import com.codenjoy.dojo.games.rawelbbub.processor.PrompterProcessor;
-import com.codenjoy.dojo.games.rawelbbub.repository.Repository;
+import com.codenjoy.dojo.games.rawelbbub.PrompterProcessor;
+import com.codenjoy.dojo.games.rawelbbub.repository.TurnsRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import feign.Feign;
@@ -24,7 +24,7 @@ public class PromptHandler {
     Map<String, String> headers;
     private final Gson gson;
     private final PrompterProcessor prompter;
-    private final Repository repository;
+    private final TurnsRepository repository;
 
     public PromptHandler() {
         gateway = Feign.builder()
@@ -37,17 +37,17 @@ public class PromptHandler {
         model = new String[]{MODEL_NAME, MODEL_VERSION};
         gson = new GsonBuilder().disableHtmlEscaping().create();
         prompter = new PrompterProcessor();
-        repository = Repository.getInstance();
+        repository = TurnsRepository.getInstance();
     }
 
 
-    public String gerTurn(Board board, int kd){
+    public String gerTurn(Board board, int coolDown){
         String response;
-        if (TOKEN.isEmpty()||TOKEN.equals("secret")) return getRandomTurn(board.toString(), kd);
+        if (TOKEN.isEmpty()||TOKEN.equals("secret")) return getRandomTurn(board.toString(), coolDown);
         try {
-            response = getTurnFromAI(prompter.getBody(board, kd));
+            response = getTurnFromAI(prompter.getBody(board, coolDown));
         } catch (Exception e) {
-            response = getRandomTurn(board.toString(), kd);
+            response = getRandomTurn(board.toString(), coolDown);
         }
         return response;
     }
@@ -64,10 +64,10 @@ public class PromptHandler {
         return response;
     }
 
-    private String getRandomTurn(String string, int kd) {
+    private String getRandomTurn(String string, int coolDown) {
         System.out.println("WARNING!!!! Check TOKEN, and your code, AI was not connected, turns create randomly");
         StringBuilder response = new StringBuilder();
-        if (kd == 0) {
+        if (coolDown == 0) {
             response.append("ACT");
         }
         int random = (int) (Math.random()*4);

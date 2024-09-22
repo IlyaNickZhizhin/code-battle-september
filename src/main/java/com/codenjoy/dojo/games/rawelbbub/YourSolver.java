@@ -23,12 +23,12 @@ package com.codenjoy.dojo.games.rawelbbub;
  */
 
 import com.codenjoy.dojo.client.Solver;
+import com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser;
 import com.codenjoy.dojo.games.rawelbbub.handler.PromptHandler;
 import com.codenjoy.dojo.games.rawelbbub.model.Action;
 import com.codenjoy.dojo.games.rawelbbub.model.Board;
 import com.codenjoy.dojo.games.rawelbbub.model.Turn;
-import com.codenjoy.dojo.games.rawelbbub.processor.PrompterProcessor;
-import com.codenjoy.dojo.games.rawelbbub.repository.Repository;
+import com.codenjoy.dojo.games.rawelbbub.repository.TurnsRepository;
 import com.codenjoy.dojo.services.Dice;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,12 +47,12 @@ public class YourSolver implements Solver<Board> {
     private Board board;
     private PromptHandler promptHandler;
     private PrompterProcessor prompter;
-    private Repository repository;
+    private TurnsRepository repository;
     private Gson gson;
-    private int kd = 0;
+    private int coolDown = 0;
 
     public YourSolver(Dice dice) {
-        repository = Repository.getInstance();
+        repository = TurnsRepository.getInstance();
         promptHandler = new PromptHandler();
         prompter = new PrompterProcessor();
         gson = new GsonBuilder().disableHtmlEscaping().create();
@@ -64,12 +64,12 @@ public class YourSolver implements Solver<Board> {
         if (board.isGameOver() && gameOverDoubleCheck()) {
             return "";
         }
-        String response = promptHandler.gerTurn(board, kd);
+        String response = promptHandler.gerTurn(board, coolDown);
         if (response.contains("ACT")) {
-            kd = 4;
+            coolDown = ConfigFileParser.COOL_DOWN;
         } else {
-            if (kd > 0) {
-                kd--;
+            if (coolDown > 0) {
+                coolDown--;
             }
         }
         repository.saveTurn(new Turn(board, new Action(response)));

@@ -1,12 +1,12 @@
-package com.codenjoy.dojo.games.rawelbbub.processor;
+package com.codenjoy.dojo.games.rawelbbub.replacers;
 
 import com.codenjoy.dojo.games.rawelbbub.model.Board;
-import com.codenjoy.dojo.games.rawelbbub.repository.Repository;
+import com.codenjoy.dojo.games.rawelbbub.repository.TurnsRepository;
 
 @FunctionalInterface
 public interface RepositoryPlaceholderReplacer extends PlaceholderReplacer {
 
-    Repository repository = Repository.getInstance();
+    TurnsRepository repository = TurnsRepository.getInstance();
 
     @Override
     default String prepare(Board board) {

@@ -1,9 +1,9 @@
 package com.codenjoy.dojo.games.rawelbbub.builder;
 
 import com.codenjoy.dojo.games.rawelbbub.model.Board;
-import com.codenjoy.dojo.games.rawelbbub.processor.BoardPlaceholderReplacer;
-import com.codenjoy.dojo.games.rawelbbub.processor.PlaceholderReplacer;
-import com.codenjoy.dojo.games.rawelbbub.processor.RepositoryPlaceholderReplacer;
+import com.codenjoy.dojo.games.rawelbbub.replacers.BoardPlaceholderReplacer;
+import com.codenjoy.dojo.games.rawelbbub.replacers.PlaceholderReplacer;
+import com.codenjoy.dojo.games.rawelbbub.replacers.RepositoryPlaceholderReplacer;
 
 import java.util.ArrayList;
 import java.util.List;

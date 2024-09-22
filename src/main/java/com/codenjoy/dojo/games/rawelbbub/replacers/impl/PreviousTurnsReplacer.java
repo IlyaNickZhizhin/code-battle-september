@@ -1,7 +1,7 @@
-package com.codenjoy.dojo.games.rawelbbub.processor.impl;
+package com.codenjoy.dojo.games.rawelbbub.replacers.impl;
 
 import com.codenjoy.dojo.games.rawelbbub.model.Board;
-import com.codenjoy.dojo.games.rawelbbub.processor.RepositoryPlaceholderReplacer;
+import com.codenjoy.dojo.games.rawelbbub.replacers.RepositoryPlaceholderReplacer;
 
 import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.TURNS_FOR_STORE;
 
