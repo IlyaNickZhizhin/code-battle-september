@@ -6,8 +6,9 @@ It allows you to easily and quickly join the game, developing your unique algori
 After cloning the repository:
 
 1. Configure your client by modifying the `config.yaml` file with the appropriate data.
-2. In the class `codenjoy-clients/src/main/java/com/codenjoy/dojo/JavaRunner.java`, set the value of the variable `private String url` to the value provided on the arena page (the address should look something like this - "https://dojorena.io/codenjoy-contest/board/player/dojorena5151?code=1234567891011121314"). Also, check the value of `private String game`, it should be "rawelbbub".
-3. Run `codenjoy-clients/src/main/java/com/codenjoy/dojo/JavaRunner.java` in your favorite IDE. Ensure that the program works correctly, and after stopping it, the files `turns.ser` (repository where your game moves are saved) and `tokens.txt` (file where the total token usage is calculated) appear in `codenjoy-clients/logs`.
+2. Make mvn clean install via you IDE or in shell(bash) command line from root folder of project.
+3. In the class `codenjoy-clients/src/main/java/com/codenjoy/dojo/JavaRunner.java`, set the value of the variable `private String url` to the value provided on the arena page (the address should look something like this - "https://dojorena.io/codenjoy-contest/board/player/dojorena5151?code=1234567891011121314"). Also, check the value of `private String game`, it should be "rawelbbub".
+4. Run `codenjoy-clients/src/main/java/com/codenjoy/dojo/JavaRunner.java` in your favorite IDE. Ensure that the program works correctly, and after stopping it, the files `turns.ser` (repository where your game moves are saved) and `tokens.txt` (file where the total token usage is calculated) appear in `codenjoy-clients/logs`.
 
 **WARNING!!! To avoid incorrect operation:**
 1. **Always** DELETE the `turns.ser` history after each round ends, and send tokens.txt to organizing committee.

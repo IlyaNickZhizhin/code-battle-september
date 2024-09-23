@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.PLAYER_NAME;
+import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.ROOT_FOLDER_NAME;
 import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.TEAM_NAME;
 
 public class TurnsRepository {
@@ -105,11 +106,11 @@ public class TurnsRepository {
 
     private Path getProjectRoot() {
         Path currentPath = Paths.get(System.getProperty("user.dir"));
-        while (currentPath != null && !currentPath.endsWith("codenjoy-clients")) {
+        while (currentPath != null && !currentPath.endsWith(ROOT_FOLDER_NAME)) {
             currentPath = currentPath.getParent();
         }
         if (currentPath == null) {
-            throw new RuntimeException("Project root 'codenjoy-clients' not found.");
+            throw new RuntimeException("Project root '" + ROOT_FOLDER_NAME + "' not found. check config file");
         }
         return currentPath;
     }

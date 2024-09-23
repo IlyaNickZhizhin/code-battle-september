@@ -1,4 +1,5 @@
 #paste your configuration here
+nameOfRootFolder: codenjoy-clients
 teamName: TeamName
 playerName: Name Surname
 token: secret

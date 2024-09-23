@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class ConfigFileParser {
+    public static String ROOT_FOLDER_NAME;
     public static String TEAM_NAME;
     public static String PLAYER_NAME;
     public static String TOKEN;
@@ -30,6 +31,7 @@ public class ConfigFileParser {
         String modelVersion = "2024-02-01";
         try {
             Map<String, String> config = readConfig();
+            ROOT_FOLDER_NAME = config.getOrDefault("nameOfRootFolder", "codenjoy-clients");
             TEAM_NAME=config.getOrDefault("teamName", "UNNAMED_TEAM");
             PLAYER_NAME=config.getOrDefault("playerName", getRandomNAme(10));
             TOKEN = config.getOrDefault("token", "secret");
