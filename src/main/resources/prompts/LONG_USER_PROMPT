@@ -1,7 +1,5 @@
 Current board: PLACE_FOR_BOARD
-board
 Action available TURNS_FOR_ACT
 Previous position in last two turns:
 PLACE_FOR_PREVIOUS_TURNS
-scheme of answer <Action>: <Detail describing action, by steps>
-example "ACT UP : I'm at position [1,1] the enemy at position [1, 15] is moving up (previous position [1, 14]) along line 1, therefore I have to turn up and shoot"
+paste here anything you want.

@@ -1,7 +1,7 @@
 #paste your configuration here
 teamName: TeamName
 playerName: Name Surname
-token: 878ed865a5d14d9b9ab3f74d54f09c8c
+token: secret
 modelName: gpt-35-turbo-16k
 modelVersion: 2024-02-01
 coolDown: 4

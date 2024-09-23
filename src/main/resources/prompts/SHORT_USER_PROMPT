@@ -1,6 +1,3 @@
 Current board: PLACE_FOR_BOARD
-Hero place [?,1] means that you at the lower border can not move DOWN
-[?,21] means that can not move UP
-[1, ?] can not move LEFT
-[21, ?] can not move RIGHT
+paste here anything you want.
 Action available TURNS_FOR_ACT
