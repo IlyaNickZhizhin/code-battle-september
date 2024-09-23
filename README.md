@@ -17,9 +17,8 @@ After cloning the repository:
 ## Instructions for Writing Code to Create Prompts
 
 You are provided with a minimal set of classes for working on creating prompts. In the folder `codenjoy-clients/src/main/resources/prompts` you can find the following files:
-1. `game_SYSTEM_prompt` - detailed game rules.
-2. `LONG_SYSTEM_PROMPT` and `SHORT_SYSTEM_PROMPT` - templates for creating system prompts for GPT chat models.
-3. `LONG_USER_PROMPT` and `SHORT_USER_PROMPT` - templates for creating user prompts for GPT chat models.
+1. `LONG_SYSTEM_PROMPT` and `SHORT_SYSTEM_PROMPT` - templates for creating system prompts for GPT chat models.
+2. `LONG_USER_PROMPT` and `SHORT_USER_PROMPT` - templates for creating user prompts for GPT chat models.
 
 As you can see from the names, prompts can be short or long. Once every few turns (the exact frequency is set in the `stepsForRefreshRules` line of the `config.yaml` file), a prompt based on the long template is sent to the AI model, while the rest of the time a prompt based on the short template is used.
 
