@@ -12,6 +12,7 @@ import feign.gson.GsonEncoder;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.MODEL_NAME;
 import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.MODEL_VERSION;
@@ -41,15 +42,37 @@ public class PromptHandler {
     }
 
 
-    public String gerTurn(Board board, int coolDown){
+    public String gerTurn(Board board, int kd){
         String response;
-        if (TOKEN.isEmpty()||TOKEN.equals("secret")) return getRandomTurn(board.toString(), coolDown);
+        if (TOKEN.equals("keyboard")){
+            return getTurnFromKeyboard();
+        }
+        if (TOKEN.isEmpty()) return getRandomTurn(board.toString(), kd);
         try {
-            response = getTurnFromAI(prompter.getBody(board, coolDown));
+            response = getTurnFromAI(prompter.getBody(board, kd));
         } catch (Exception e) {
-            response = getRandomTurn(board.toString(), coolDown);
+            response = getRandomTurn(board.toString(), kd);
         }
         return response;
+    }
+
+    private String getTurnFromKeyboard() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
+        switch (input.toUpperCase()) {
+            case "W":
+                return "UP";
+            case "S":
+                return "DOWN";
+            case "A":
+                return "LEFT";
+            case "D":
+                return "RIGHT";
+            case " ":
+                return "ACT";
+            default:
+                return "INVALID INPUT";
+        }
     }
 
     private String getTurnFromAI(Object body){
