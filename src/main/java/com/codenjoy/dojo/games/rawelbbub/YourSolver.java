@@ -64,7 +64,8 @@ public class YourSolver implements Solver<Board> {
         if (board.isGameOver() && gameOverDoubleCheck()) {
             return "";
         }
-        String response = promptHandler.gerTurn(board, coolDown);
+        repository.saveTurn(new Turn(board));
+        String response = promptHandler.getTurn(board, coolDown);
         if (response.contains("ACT")) {
             coolDown = ConfigFileParser.COOL_DOWN;
         } else {
@@ -72,7 +73,7 @@ public class YourSolver implements Solver<Board> {
                 coolDown--;
             }
         }
-        repository.saveTurn(new Turn(board, new Action(response)));
+        repository.getLast().setAction(new Action(response));
         return response;
     }
 

@@ -26,7 +26,11 @@ import com.codenjoy.dojo.services.Direction;
 
 import java.util.function.Function;
 
-import static com.codenjoy.dojo.services.Direction.*;
+import static com.codenjoy.dojo.services.Direction.ACT;
+import static com.codenjoy.dojo.services.Direction.DOWN;
+import static com.codenjoy.dojo.services.Direction.LEFT;
+import static com.codenjoy.dojo.services.Direction.RIGHT;
+import static com.codenjoy.dojo.services.Direction.UP;
 
 public class Command {
 

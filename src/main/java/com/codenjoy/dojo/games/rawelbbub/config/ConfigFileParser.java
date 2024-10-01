@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class ConfigFileParser {
-    public static String ROOT_FOLDER_NAME;
     public static String TEAM_NAME;
     public static String PLAYER_NAME;
     public static String TOKEN;
@@ -31,12 +30,11 @@ public class ConfigFileParser {
         String modelVersion = "2024-02-01";
         try {
             Map<String, String> config = readConfig();
-            ROOT_FOLDER_NAME = config.getOrDefault("nameOfRootFolder", "codenjoy-clients");
             TEAM_NAME=config.getOrDefault("teamName", "UNNAMED_TEAM");
-            PLAYER_NAME=config.getOrDefault("playerName", getRandomNAme(10));
+            PLAYER_NAME=config.getOrDefault("playerName", getRandomNAme());
             TOKEN = config.getOrDefault("token", "secret");
-            MODEL_NAME = config.getOrDefault("model_name", modelName);
-            MODEL_VERSION = config.getOrDefault("model_version", modelVersion);
+            MODEL_NAME = config.getOrDefault("modelName", modelName);
+            MODEL_VERSION = config.getOrDefault("modelVersion", modelVersion);
             COOL_DOWN = Integer.parseInt(config.getOrDefault("coolDown", "4"));
             MAX_TOKENS_OF_ANSWER = Integer.parseInt(config.getOrDefault("maxTokensOfAnswer", String.valueOf(maxTokensOfAnswer)));
             TEMPERATURE = Double.parseDouble(config.getOrDefault("temperature", String.valueOf(temperature)));
@@ -64,12 +62,12 @@ public class ConfigFileParser {
         return config;
     }
 
-    private static String getRandomNAme(int length){
+    private static String getRandomNAme(){
         String alphabet = " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         Random random = new Random();
         StringBuilder name = new StringBuilder();
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < 10; i++) {
             int index = random.nextInt(alphabet.length());
             name.append(alphabet.charAt(index));
         }

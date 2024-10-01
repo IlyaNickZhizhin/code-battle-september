@@ -2,10 +2,7 @@ package com.codenjoy.dojo.games.rawelbbub.model;
 
 import com.codenjoy.dojo.services.Direction;
 
-import java.io.Serializable;
-
-public class Action implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Action {
     private final boolean wasAct;
     private final Direction move;
     private final String description;

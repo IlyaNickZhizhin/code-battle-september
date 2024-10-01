@@ -1,17 +1,17 @@
 package com.codenjoy.dojo.games.rawelbbub.handler;
 
-import com.codenjoy.dojo.games.rawelbbub.gateway.AIGateway;
-import com.codenjoy.dojo.games.rawelbbub.model.Board;
 import com.codenjoy.dojo.games.rawelbbub.PrompterProcessor;
+import com.codenjoy.dojo.games.rawelbbub.gateway.AIGateway;
+import com.codenjoy.dojo.games.rawelbbub.gateway.MockGateway;
+import com.codenjoy.dojo.games.rawelbbub.model.Board;
 import com.codenjoy.dojo.games.rawelbbub.repository.TurnsRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import feign.Feign;
-import feign.gson.GsonDecoder;
-import feign.gson.GsonEncoder;
+import feign.RetryableException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.MODEL_NAME;
 import static com.codenjoy.dojo.games.rawelbbub.config.ConfigFileParser.MODEL_VERSION;
@@ -27,10 +27,11 @@ public class PromptHandler {
     private final TurnsRepository repository;
 
     public PromptHandler() {
-        gateway = Feign.builder()
+/*        gateway = Feign.builder()
                 .decoder(new GsonDecoder())
                 .encoder(new GsonEncoder())
-                .target(AIGateway.class, "https://ai-proxy.lab.epam.com");
+                .target(AIGateway.class, "https://ai-proxy.lab.epam.com");*/
+        gateway = new MockGateway();
         headers = Map.of(
                 "API-KEY", TOKEN,
                 "Content-Type", "application/json");
@@ -41,15 +42,38 @@ public class PromptHandler {
     }
 
 
-    public String gerTurn(Board board, int coolDown){
+    public String getTurn(Board board, int kd){
         String response;
-        if (TOKEN.isEmpty()||TOKEN.equals("secret")) return getRandomTurn(board.toString(), coolDown);
+        if (TOKEN.equals("keyboard")){
+            return getTurnFromKeyboard();
+        }
+        if (TOKEN.isEmpty()) return getRandomTurn(board.toString(), kd);
         try {
-            response = getTurnFromAI(prompter.getBody(board, coolDown));
-        } catch (Exception e) {
-            response = getRandomTurn(board.toString(), coolDown);
+            response = getTurnFromAI(prompter.getBody(board, kd));
+        } catch (RetryableException e) {
+            System.out.println(e.getMessage());
+            response = getRandomTurn(board.toString(), kd);
         }
         return response;
+    }
+
+    private String getTurnFromKeyboard() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
+        switch (input.toUpperCase()) {
+            case "W":
+                return "UP";
+            case "S":
+                return "DOWN";
+            case "A":
+                return "LEFT";
+            case "D":
+                return "RIGHT";
+            case " ":
+                return "ACT";
+            default:
+                return "INVALID INPUT";
+        }
     }
 
     private String getTurnFromAI(Object body){
@@ -60,12 +84,12 @@ public class PromptHandler {
         System.out.println(gson.toJson(answer));
         Map<Object,Object> usage = (Map<Object, Object>) ((Map<Object, Object>) answer).get("usage");
         double tokens = (Double) usage.get("total_tokens");
-        repository.getTurn(repository.getMaxTurnNumber()).setTokens((int) tokens);
+        repository.getTurn(repository.getMaxTurnNumber()).setTokens(tokens);
         return response;
     }
 
     private String getRandomTurn(String string, int coolDown) {
-        System.out.println("WARNING!!!! Check TOKEN, and your code, AI was not connected, turns create randomly");
+        System.out.println("WARNING!!!! Check TOKEN (or other causes), and your code, seemly AI was not connected, turns create randomly");
         StringBuilder response = new StringBuilder();
         if (coolDown == 0) {
             response.append("ACT");

@@ -29,7 +29,17 @@ import com.codenjoy.dojo.services.Point;
 import java.util.List;
 
 import static com.codenjoy.dojo.games.rawelbbub.model.Element.REEFS;
-import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.*;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.ais;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.barriers;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.enemies;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.fishnet;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.heroes;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.icebergs;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.oil;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.otherHeroes;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.prizes;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.seaweed;
+import static com.codenjoy.dojo.games.rawelbbub.utils.ElementUtils.torpedoes;
 
 /**
  * The class is a wrapper over the board string

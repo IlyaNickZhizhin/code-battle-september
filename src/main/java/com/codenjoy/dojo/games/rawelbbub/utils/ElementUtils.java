@@ -30,7 +30,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.codenjoy.dojo.games.rawelbbub.model.Element.*;
-import static com.codenjoy.dojo.services.Direction.*;
+import static com.codenjoy.dojo.services.Direction.DOWN;
+import static com.codenjoy.dojo.services.Direction.LEFT;
+import static com.codenjoy.dojo.services.Direction.RIGHT;
+import static com.codenjoy.dojo.services.Direction.UP;
 
 public class ElementUtils {
 
