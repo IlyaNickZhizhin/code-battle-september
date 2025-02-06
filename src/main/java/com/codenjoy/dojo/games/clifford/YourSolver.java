@@ -26,6 +26,8 @@ package com.codenjoy.dojo.games.clifford;
 import com.codenjoy.dojo.client.Solver;
 import com.codenjoy.dojo.services.Dice;
 
+import java.util.Scanner;
+
 /**
  * Author: your name
  *
@@ -38,18 +40,50 @@ public class YourSolver implements Solver<Board> {
 
     private Dice dice;
     private Board board;
+    private Scanner scanner;
+    private char prev = ' ';
 
     public YourSolver(Dice dice) {
         this.dice = dice;
+        scanner = new Scanner(System.in);
     }
 
     @Override
     public String get(Board board) {
         this.board = board;
         if (board.isGameOver()) return "";
+        char key = nextMove();
+        String commdand;
+        switch (key) {
+            case 'W':
+                commdand = Command.MOVE_UP;
+                break;
+            case 'S':
+                commdand = Command.MOVE_DOWN;
+                break;
+            case 'A':
+                commdand = Command.MOVE_LEFT;
+                break;
+            case 'D':
+                commdand = Command.MOVE_RIGHT;
+                break;
+            case 'X':
+                commdand = "ACT";
+                break;
+            case ' ':
+                commdand = prev == 'A' ? Command.SHOOT_LEFT : Command.SHOOT_RIGHT;
+                break;
+            default:
+                commdand = Command.NONE;
+                break;
+        }
+        prev = key == 'A' || key == 'D' ? key : prev;
+        return commdand;
+    }
 
-        // TODO your code here
-
-        return Command.MOVE_RIGHT;
+    private char nextMove(){
+        String line = scanner.nextLine();
+        char key = line.toUpperCase().charAt(0);
+        return key;
     }
 }

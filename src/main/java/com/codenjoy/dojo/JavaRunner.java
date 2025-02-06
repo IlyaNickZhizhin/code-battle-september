@@ -38,7 +38,7 @@ public class JavaRunner {
     private static Logger log = LoggerFactory.getLogger(JavaRunner.class);
 
     // Select your game
-    private String game = "rawelbbub";
+    private String game = "clifford";
 
     // Paste here board page url from browser after registration,
     // or put it as command line parameter.

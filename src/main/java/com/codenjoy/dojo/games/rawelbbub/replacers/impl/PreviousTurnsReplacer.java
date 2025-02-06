@@ -1,6 +1,5 @@
 package com.codenjoy.dojo.games.rawelbbub.replacers.impl;
 
-import com.codenjoy.dojo.games.rawelbbub.model.Board;
 import com.codenjoy.dojo.games.rawelbbub.model.Turn;
 import com.codenjoy.dojo.games.rawelbbub.replacers.RepositoryPlaceholderReplacer;
 
@@ -15,17 +14,6 @@ public class PreviousTurnsReplacer implements RepositoryPlaceholderReplacer {
         if (TURNS_FOR_STORE<maxTurnStored) {
             return getPreviousNeededTurns(TURNS_FOR_STORE);
         } else return getPreviousNeededTurns(repository.getMaxTurnNumber());
-    }
-
-    @Override
-    public String prepare(Board board) {
-        return RepositoryPlaceholderReplacer.super.prepare(board);
-    }
-
-
-    @Override
-    public String prepare() {
-        return RepositoryPlaceholderReplacer.super.prepare();
     }
 
     private String getPreviousNeededTurns(int numberOfNeededTurns){
